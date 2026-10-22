@@ -446,17 +446,36 @@ body,.agency-site{background-color:#0F3D3A}
 .agency-site[data-theme="light"] .contact-brief__detail {
   border-bottom-color: rgba(15,61,58,.22) !important;
 }
-.agency-site[data-theme="light"] .contact-brief__detail:hover {
+.agency-site[data-theme="light"] .contact-brief__detail {
+  transition: color .22s ease, border-color .22s ease, background-color .22s ease;
+  -webkit-tap-highlight-color: rgba(108,21,30,.16);
+}
+.agency-site[data-theme="light"] .contact-brief__detail:hover,
+.agency-site[data-theme="light"] .contact-brief__detail:focus,
+.agency-site[data-theme="light"] .contact-brief__detail:focus-visible,
+.agency-site[data-theme="light"] .contact-brief__detail:active {
+  color: #6C151E !important;
+  border-bottom-color: #6C151E !important;
+}
+.agency-site[data-theme="light"] .contact-brief__detail:hover svg,
+.agency-site[data-theme="light"] .contact-brief__detail:focus svg,
+.agency-site[data-theme="light"] .contact-brief__detail:active svg {
   color: #6C151E !important;
 }
 .agency-site[data-theme="light"] .contact-brief__socials a {
   color: #0F3D3A !important;
   border-color: rgba(15,61,58,.6) !important;
+  transition: background .22s ease, border-color .22s ease, color .22s ease, transform .22s ease;
+  -webkit-tap-highlight-color: rgba(108,21,30,.16);
 }
-.agency-site[data-theme="light"] .contact-brief__socials a:hover {
+.agency-site[data-theme="light"] .contact-brief__socials a:hover,
+.agency-site[data-theme="light"] .contact-brief__socials a:focus,
+.agency-site[data-theme="light"] .contact-brief__socials a:focus-visible,
+.agency-site[data-theme="light"] .contact-brief__socials a:active {
   background: #6C151E !important;
   border-color: #6C151E !important;
   color: #FFFFFF !important;
+  transform: translateY(-2px);
 }
 .agency-site[data-theme="light"] .contact-brief__form-panel {
   background: #F5DABF !important;

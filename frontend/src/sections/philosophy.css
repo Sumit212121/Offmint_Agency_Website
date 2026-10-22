@@ -204,7 +204,7 @@
 }
 @media(max-width:700px){
   .philosophy-section{height:auto!important;min-height:1680px!important}
-  .philosophy-cards--carousel .philosophy-card-slot--carousel{left:auto!important;top:auto!important;opacity:1!important;transform:none!important;pointer-events:auto!important}
+  .philosophy-cards--carousel .philosophy-card-slot--carousel{pointer-events:auto!important}
   .philosophy-hanging-anchor,.philosophy-carousel-controls{display:none}
   .philosophy-cards--carousel .philosophy-card-slot--carousel .philosophy-card{animation:none}
 }

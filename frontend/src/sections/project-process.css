@@ -97,10 +97,18 @@
     grid-template-columns: 1fr; gap: 0; margin-top: 46px; padding-left: 28px;
   }
   .project-process-timeline::before {
-    top: 9px; bottom: 12px; left: 8px; right: auto; width: 1.5px; height: auto;
+    top: 9px; bottom: 12px;
+    left: 14px; right: auto;
+    width: 1.5px; height: auto;
   }
+  /* On mobile, remove the moving red streak and keep one continuous gold line through each stage dot. */
+  .project-process-timeline::after { display: none; animation: none; }
   .project-process-stage { text-align: left; padding: 0 0 30px 24px; }
-  .project-process-dot { left: -19px; top: 3px; transform: none; width: 14px; height: 14px; }
+  .project-process-dot {
+    left: -19px; top: 3px; transform: none; width: 14px; height: 14px;
+    background: var(--process-ink); border: 2px solid var(--process-gold);
+    box-shadow: 0 0 0 1px var(--process-gold);
+  }
   .project-process-number { font-size: 27px; margin-bottom: 7px; }
   .project-process-stage h3 { font-size: 23px; margin-bottom: 7px; }
   .project-process-stage p { margin: 0; max-width: 480px; font-size: 14px; }

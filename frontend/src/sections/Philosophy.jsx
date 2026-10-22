@@ -4,10 +4,14 @@ import PhilosophyCard, { PhilosophyDialog } from "../components/PhilosophyCard.j
 import { defaultPhilosophyCards, defaultPhilosophyHeading } from "../data/philosophyContent.js";
 import "./philosophy.css";
 import "./philosophy-layout-fix.css";
+import "./philosophy-mobile-carousel.css";
 
 const STORAGE_KEY = "aurelia-philosophy-content-v1";
 
-function ConnectingLines() {
+function ConnectingLines({ mobile = false }) {
+  const goldWave = mobile
+    ? "M-30 205 C120 145 220 145 340 185 S560 225 700 180 S930 140 1080 180 S1320 150 1510 195"
+    : "M-30 205 C65 105 155 55 265 138 S390 220 500 132 S630 32 720 145 S855 165 960 100 S1090 60 1190 145 S1375 85 1510 190";
   return (
     <svg className="philosophy-lines" viewBox="0 0 1500 570" preserveAspectRatio="none" aria-hidden="true">
       <defs>
@@ -21,10 +25,13 @@ function ConnectingLines() {
           <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
         </filter>
       </defs>
-      <path className="philosophy-lines__halo" d="M-30 205 C65 105 155 55 265 138 S390 220 500 132 S630 32 720 145 S855 165 960 100 S1090 60 1190 145 S1375 85 1510 190" />
-      <path d="M-30 205 C65 105 155 55 265 138 S390 220 500 132 S630 32 720 145 S855 165 960 100 S1090 60 1190 145 S1375 85 1510 190" />
+      <path className="philosophy-lines__halo" d={goldWave} />
+      <path d={goldWave} />
       <path className="philosophy-lines__lower" d="M-35 390 C110 410 200 555 365 530 S565 405 690 435 S895 530 1040 430 S1300 370 1515 300" />
-      {[[190,86],[440,164],[665,45],[900,126],[1135,76],[1335,157],[1470,128]].map(([cx, cy], index) => (
+      {(mobile
+        ? [[190,169],[440,194],[665,191],[900,157],[1135,177],[1335,169],[1470,190]]
+        : [[190,86],[440,164],[665,45],[900,126],[1135,76],[1335,157],[1470,128]]
+      ).map(([cx, cy], index) => (
         <g key={index} filter="url(#philosophyLineGlow)">
           <circle cx={cx} cy={cy} r="9" fill="#fff1c4" opacity=".7" />
           <circle cx={cx} cy={cy} r="6.5" fill="#bf792b" stroke="#e9a84b" strokeWidth="1.4" />
@@ -98,6 +105,17 @@ export default function Philosophy() {
   const [savedNotice, setSavedNotice] = useState(false);
   const [activeHead, setActiveHead] = useState(0);
   const [carouselPaused, setCarouselPaused] = useState(false);
+  const [isMobileCarousel, setIsMobileCarousel] = useState(
+    typeof window !== "undefined" && window.matchMedia("(max-width: 700px)").matches
+  );
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 700px)");
+    const updateViewport = () => setIsMobileCarousel(media.matches);
+    updateViewport();
+    media.addEventListener("change", updateViewport);
+    return () => media.removeEventListener("change", updateViewport);
+  }, []);
 
   // Card anchor points are sampled from the actual gold SVG wave at runtime.
   const [waveSlots, setWaveSlots] = useState([
@@ -119,10 +137,12 @@ export default function Philosophy() {
       const svgRect = svg.getBoundingClientRect();
       const viewBox = svg.viewBox.baseVal;
       const totalLength = path.getTotalLength();
-      const cardWidth = stageRect.width * 0.162;
-      // Keep card centers evenly spaced, then read the exact Y of the gold path at each center.
-      // Sampling by path length alone bunches cards together where the curve bends.
-      const centerFractions = [0.08, 0.246, 0.412, 0.578, 0.744, 0.91];
+      const mobile = window.matchMedia("(max-width: 700px)").matches;
+      const cardWidth = stageRect.width * (mobile ? 0.46 : 0.162);
+      // On mobile, use two card-width-spaced anchor points; sample their exact Y from the same SVG gold wave.
+      const centerFractions = mobile
+        ? [0.23, 0.75]
+        : [0.08, 0.246, 0.412, 0.578, 0.744, 0.91];
       const densePoints = Array.from({ length: 1201 }, (_, sampleIndex) => {
         const point = path.getPointAtLength((totalLength * sampleIndex) / 1200);
         return {
@@ -136,11 +156,18 @@ export default function Philosophy() {
           Math.abs(candidate.x - targetCenterX) < Math.abs(nearest.x - targetCenterX) ? candidate : nearest
         );
         const left = ((targetCenterX - cardWidth / 2 - stageRect.left) / stageRect.width) * 100;
-        // The anchor dot sits just above the card, centered directly on the sampled wave.
-        const top = Math.max(0, point.y - stageRect.top + 34);
+
+        // IMPORTANT: on mobile the hanging dot must sit ON the sampled gold path.
+        // The thread is 40px tall, so the card top is exactly 40px below the path.
+        const threadLength = mobile ? 40 : 34;
+        const pathY = point.y - stageRect.top;
+        const top = Math.max(0, pathY + threadLength);
+
         return {
           left,
           top: `${top}px`,
+          pathY: `${pathY}px`,
+          threadLength,
           scale: [0.94, 0.96, 1.02, 0.96, 1, 0.94][index],
           opacity: [0.94, 0.98, 1, 0.98, 1, 0.95][index],
         };
@@ -160,11 +187,15 @@ export default function Philosophy() {
 
   useEffect(() => {
     if (carouselPaused || editingCard || activeCard) return undefined;
-    const timer = window.setInterval(() => setActiveHead((head) => (head + 1) % cards.length), 1500);
+    // Keep two cards visible on mobile, but advance the carousel by ONE card each time.
+    // This creates the staggered flow: 01+02 -> 02+03 -> 03+04 ... in a continuous loop.
+    const step = 1;
+    const timer = window.setInterval(() => setActiveHead((head) => (head + step) % cards.length), 1500);
     return () => window.clearInterval(timer);
-  }, [carouselPaused, editingCard, activeCard, cards.length]);
+  }, [carouselPaused, editingCard, activeCard, cards.length, isMobileCarousel]);
 
   const moveCarousel = (direction) => {
+    // Manual navigation also advances one card at a time on mobile.
     setActiveHead((head) => (head + direction + cards.length) % cards.length);
   };
 
@@ -240,24 +271,29 @@ export default function Philosophy() {
           if (!event.currentTarget.contains(event.relatedTarget)) setCarouselPaused(false);
         }}
       >
-        <ConnectingLines />
+        <ConnectingLines mobile={isMobileCarousel} />
         {cards.map((card, index) => {
           const slot = (index - activeHead + cards.length) % cards.length;
-          const visible = slot < waveSlots.length;
-          const config = waveSlots[slot];
+          const visible = slot < (isMobileCarousel ? 2 : waveSlots.length);
+          const config = waveSlots[slot] || { left: slot === 0 ? 0 : 52, top: "28px", scale: 1, opacity: 1 };
           const positionStyle = visible
             ? {
                 left: `${config.left}%`, top: config.top,
                 opacity: config.opacity,
                 transform: `translate3d(0, 0, 0) scale(${config.scale})`,
+                "--anchor-thread": `${config.threadLength || 34}px`,
                 zIndex: 20 + (slot % 2), pointerEvents: "auto",
               }
             : {
-                left: slot === 6 ? "101%" : "-22%", top: "18%",
-                opacity: 0, transform: "scale(.72)", zIndex: 1, pointerEvents: "none",
+                // Mobile pair carousel: new cards enter from the right; outgoing cards exit left along the gold track.
+                left: isMobileCarousel ? (slot >= 7 ? "-60%" : "110%") : (slot === 6 ? "101%" : "-22%"),
+                top: isMobileCarousel ? (waveSlots[slot % 2]?.top || "18%") : "18%",
+                opacity: 0,
+                transform: isMobileCarousel ? "translate3d(0, 0, 0) scale(.88)" : "scale(.72)",
+                zIndex: 1, pointerEvents: "none",
               };
           return (
-            <div className={`philosophy-card-slot philosophy-card-slot--${card.id} philosophy-card-slot--carousel`} key={card.id} style={positionStyle} aria-hidden={!visible}>
+            <div className={`philosophy-card-slot philosophy-card-slot--${card.id} philosophy-card-slot--carousel`} key={card.id} data-carousel-slot={slot} style={positionStyle} aria-hidden={!visible}>
               <span className="philosophy-hanging-anchor" aria-hidden="true"><i /></span>
               <PhilosophyCard card={card} onOpen={setActiveCard} onEdit={setEditingCard} />
             </div>

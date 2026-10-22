@@ -70,8 +70,8 @@
     flex-direction: column !important;
     align-items: stretch !important;
     min-height: auto !important;
-    padding: 48px 20px 60px !important;
-    gap: 30px !important;
+    padding: 18px 20px 48px !important;
+    gap: 18px !important;
   }
   .agency-site .hero h1 { font-size: clamp(40px, 11vw, 58px) !important; letter-spacing: -.04em !important; }
   .agency-site .hero-art { width: 100%; min-width: 0; }
@@ -102,6 +102,12 @@
   .agency-site .concept-visual .visual { height: 220px !important; }
   .agency-site .services-showcase { padding: 48px 18px 26px !important; }
   .agency-site .services-showcase-heading { margin-bottom: 24px !important; }
+  .agency-site .services-showcase-eyebrow {
+    color: #6C151E !important;
+  }
+  .agency-site .services-showcase-eyebrow i {
+    background-color: #6C151E !important;
+  }
   .agency-site .services-showcase-heading h2 {
     white-space: normal !important;
     font-size: clamp(32px, 8.5vw, 44px) !important;
@@ -119,7 +125,7 @@
   .agency-site .our-portfolio__grid {
     grid-template-columns: minmax(0, 1fr) !important;
     grid-template-areas: "feature" "product" "commerce" "car" "fashion" !important;
-    grid-template-rows: 300px 240px 240px 240px 240px !important;
+    grid-template-rows: 360px 300px 300px 300px 300px !important;
     width: calc(100% + 40px) !important;
     margin-left: -20px !important;
     margin-right: -20px !important;
@@ -174,4 +180,45 @@
   .agency-site .theme-toggle { padding: 7px !important; }
   .agency-site .client-stories__card-top { gap: 8px !important; }
   .agency-site .client-stories__card { padding: 20px 16px !important; }
+}
+
+/* Mobile header alignment: menu left, logo centered, actions on the right */
+@media (max-width: 640px) {
+  /* Keep the mobile hero compact and hide the CTA's decorative arrow. */
+  .agency-site .nav-cta svg { display: none !important; }
+  .agency-site .hero { padding-top: 3vh !important; }
+  .agency-site .hero-image-copy { padding-top: 14px !important; }
+  .agency-site .hero .eyebrow { margin-top: 0 !important; }
+  .agency-site .topbar {
+    display: grid !important;
+    grid-template-columns: 42px minmax(0, 1fr) auto !important;
+    align-items: center !important;
+    column-gap: 8px !important;
+    padding: 0 12px !important;
+    height: 66px !important;
+  }
+  .agency-site .menu-toggle {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+    margin: 0 !important;
+    z-index: 2;
+  }
+  .agency-site .topbar > .brand {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    min-width: 0;
+    margin: 0 !important;
+    z-index: 1;
+  }
+  .agency-site .nav-actions {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+    gap: 6px !important;
+    position: relative;
+    z-index: 2;
+  }
 }
