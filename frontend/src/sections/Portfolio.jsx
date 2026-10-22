@@ -47,6 +47,7 @@ const projects = [
     type: "FASHION",
     categories: ["FASHION", "CAMPAIGN", "STYLING"],
     image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1400&q=85",
+    video: "/video2.mp4",
     alt: "Fashion editorial portrait",
     layout: "bottom-fashion",
   },

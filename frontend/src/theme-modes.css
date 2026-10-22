@@ -72,8 +72,12 @@
 .agency-site[data-theme="dark"] .philosophy-intro h2,
 .agency-site[data-theme="dark"] .philosophy-intro>p,
 .agency-site[data-theme="dark"] .philosophy-side-nav a,
-.agency-site[data-theme="dark"] .philosophy-scroll,
-.agency-site[data-theme="dark"] .philosophy-story { color:#1e332a; }
+.agency-site[data-theme="dark"] .philosophy-scroll { color:#1e332a; }
+
+.agency-site[data-theme="dark"] .philosophy-story,
+.agency-site[data-theme="dark"] .philosophy-story > span {
+  color:#FFFFFF!important;
+}
 .agency-site[data-theme="dark"] .philosophy-intro h2 em,
 .agency-site[data-theme="dark"] .philosophy-eyebrow,
 .agency-site[data-theme="dark"] .philosophy-handwriting,
@@ -406,7 +410,7 @@
 .agency-site[data-theme="dark"] .contact-brief form textarea::placeholder,
 .agency-site[data-theme="dark"] .contact-brief .contact-brief__subtext { color:rgba(15,61,58,.72) !important; }
 .agency-site[data-theme="dark"] .contact-brief form select option { background:#F5DABF !important;color:#0F3D3A !important; }
-.agency-site[data-theme="dark"] .contact-brief__submit { background:#0F3D3A !important;color:#F5DABF !important;border:1px solid #D0A45C !important; }
+.agency-site[data-theme="dark"] .contact-brief__submit { background:#6C151E !important;color:#F5DABF !important;border:1px solid #6C151E !important; }
 .agency-site[data-theme="dark"] .contact-brief__socials a { color:#0F3D3A !important;border-color:#0F3D3A !important; }
 .agency-site[data-theme="dark"] .contact-brief__detail { border-bottom-color:rgba(15,61,58,.25) !important; }
 .agency-site[data-theme="light"] .services-showcase,

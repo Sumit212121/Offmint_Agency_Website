@@ -1,5 +1,10 @@
 /* Mobile: keep two cards moving along a gold wave, like the desktop carousel. */
 @media (max-width: 700px) {
+  /* Hide the WATCH OUR STORY control on mobile only. */
+  .philosophy-section .philosophy-story {
+    display: none !important;
+  }
+
   .philosophy-section {
     height: auto !important;
     min-height: 850px !important;
@@ -91,9 +96,9 @@
     display: block !important;
     position: absolute !important;
     z-index: 5 !important;
-    /* Lift the glowing anchor onto the visible gold SVG curve; keep the thread connected to the card. */
-    top: calc(-1 * (var(--anchor-thread, 40px) + 28px)) !important;
-    height: calc(var(--anchor-thread, 40px) + 28px) !important;
+    /* Align the glowing dot with the exact SVG wave sample; thread ends at the card top. */
+    top: calc(-1 * var(--anchor-thread, 40px)) !important;
+    height: var(--anchor-thread, 40px) !important;
     width: 1.5px !important;
     background: linear-gradient(to bottom, #f4c46a, rgba(244,196,106,.8)) !important;
   }

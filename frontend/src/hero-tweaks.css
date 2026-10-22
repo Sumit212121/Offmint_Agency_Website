@@ -115,11 +115,5 @@
 }
 @media(max-width:390px){.hero-image-title{font-size:40px}.hero-image-button{padding:0 12px;font-size:9px}.hero-image-capabilities{gap:6px}}
 
-@media(max-width:760px){
-  .agency-site[data-theme="dark"] .hero.hero-arch-image-only{
-    background:#F5DABF!important;
-    background-color:#F5DABF!important;
-    color:#0F3D3A!important;
-  }
-}
+
 

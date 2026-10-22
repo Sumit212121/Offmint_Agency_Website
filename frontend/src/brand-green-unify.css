@@ -12,7 +12,7 @@
 }
 :root{--green:#0F3D3A;--forest:#0F3D3A}
 body,.agency-site{background-color:#0F3D3A}
-.agency-site[data-theme="dark"] .hero,
+.agency-site[data-theme="dark"] .hero:not(.hero-arch-image-only),
 .agency-site[data-theme="dark"] .our-portfolio,
 .agency-site[data-theme="dark"] .contact-brief,
 .agency-site[data-theme="light"] .philosophy-section,
@@ -89,6 +89,14 @@ body,.agency-site{background-color:#0F3D3A}
 .agency-site .hero-image-title{color:#0F3D3A}
 .agency-site[data-theme="dark"] .hero-image-title{color:#F5DABF}
 
+/* The mobile hero canvas stays cream even when the site's theme is dark. */
+@media (max-width:640px){
+  .agency-site[data-theme="dark"] .hero.hero-arch-image-only{
+    background:#F5DABF!important;
+    background-color:#F5DABF!important;
+  }
+}
+
 /* Footer theme colors: light = exact green, dark = exact cream. */
 .agency-site[data-theme="light"] .footer{
   background:#0F3D3A!important;
@@ -111,6 +119,37 @@ body,.agency-site{background-color:#0F3D3A}
   color:#0F3D3A!important;
 }
 .agency-site .hero-image-title .hero-image-bordo{color:#6C151E}
+
+/* Keep “Enduring” gold; only “Value.” is burgundy red. */
+.agency-site .philosophy-section .philosophy-intro h2 em{
+  color:#D0A45C!important;
+}
+.agency-site .philosophy-section .philosophy-intro h2 em .philosophy-value-word{
+  color:#6C151E!important;
+}
+
+/* Mobile-only burgundy accents for the Our Process eyebrow and “Runs.” */
+@media (max-width: 640px){
+  .agency-site .project-process .project-process-eyebrow{
+    color:#6C151E!important;
+  }
+  .agency-site .project-process .project-process-eyebrow span{
+    background:#6C151E!important;
+    background-color:#6C151E!important;
+  }
+  .agency-site .project-process h2 em{
+    color:#D0A45C!important;
+  }
+}
+
+/* Philosophy eyebrow label and its horizontal accent line in burgundy red. */
+.agency-site .philosophy-eyebrow,
+.agency-site .philosophy-eyebrow > span{
+  color:#6C151E!important;
+}
+.agency-site .philosophy-eyebrow i{
+  background:#6C151E!important;
+}
 
 /* Consistent alternating section rhythm from hero through footer.
    Dark theme: cream, green, cream, green... Light theme reverses it. */

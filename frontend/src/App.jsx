@@ -26,6 +26,16 @@ export default function App() {
     } catch {}
   }, [theme]);
 
+  useEffect(() => {
+    const mobileTheme = window.matchMedia("(max-width: 640px)");
+    const keepMobileDark = () => {
+      if (mobileTheme.matches) setTheme("dark");
+    };
+    keepMobileDark();
+    mobileTheme.addEventListener?.("change", keepMobileDark);
+    return () => mobileTheme.removeEventListener?.("change", keepMobileDark);
+  }, []);
+
   const toggleTheme = () => setTheme((current) => current === "dark" ? "light" : "dark");
 
   return (

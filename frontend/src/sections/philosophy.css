@@ -15,7 +15,7 @@
 .philosophy-eyebrow{display:flex;align-items:center;gap:16px;font-size:12px;letter-spacing:.19em;font-weight:500;white-space:nowrap}
 .philosophy-eyebrow i{display:block;width:85px;height:1px;background:#b97d3e}
 .philosophy-intro h2{font-family:"Playfair Display",Georgia,serif;font-weight:600;font-size:clamp(40px,4.15vw,62px);letter-spacing:-1.8px;line-height:1.04;margin:17px 0 22px;color:#292521}
-.philosophy-intro h2 em{display:block;color:#b27d40;font-weight:600}
+.philosophy-intro h2 em{display:block;color:#6C151E;font-weight:600}
 .philosophy-intro>p{max-width:495px;font-size:clamp(14px,.98vw,16px);line-height:1.62;margin:0 0 18px;color:#37322d}
 .philosophy-actions{display:flex;align-items:center;gap:30px}
 .philosophy-cta{height:42px;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:0 27px;border-radius:99px;background:linear-gradient(100deg,#9e642b,#c59452);color:#fff;text-decoration:none;text-transform:uppercase;font-size:11px;font-weight:600;letter-spacing:.035em;box-shadow:0 2px 0 #ffffff80 inset;transition:transform .25s,box-shadow .25s}

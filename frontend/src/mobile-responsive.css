@@ -184,33 +184,12 @@
 
 /* Mobile header alignment: menu left, logo centered, actions on the right */
 @media (max-width: 640px) {
-  /* In dark mode, keep the mobile hero on the brand cream background. */
-  .agency-site[data-theme="dark"] .hero,
-  .agency-site[data-theme="dark"] .hero-arch-image-only {
+  /* Mobile hero uses the requested cream canvas while the rest of the site stays dark. */
+  .agency-site .hero.hero-arch-image-only {
     background: #F5DABF !important;
     background-color: #F5DABF !important;
-    color: #0F3D3A !important;
   }
-  .agency-site[data-theme="dark"] .hero .eyebrow,
-  .agency-site[data-theme="dark"] .hero h1,
-  .agency-site[data-theme="dark"] .hero .hero-description,
-  .agency-site[data-theme="dark"] .hero .capabilities,
-  .agency-site[data-theme="dark"] .hero-image-copy,
-  .agency-site[data-theme="dark"] .hero-image-title,
-  .agency-site[data-theme="dark"] .hero-image-description,
-  .agency-site[data-theme="dark"] .hero-image-capabilities {
-    color: #0F3D3A !important;
-  }
-  .agency-site[data-theme="dark"] .hero h1 .hero-highlight,
-  .agency-site[data-theme="dark"] .hero h1 .text-gold {
-    color: #B98538 !important;
-  }
-  .agency-site[data-theme="dark"] .hero h1 .hero-bordo,
-  .agency-site[data-theme="dark"] .hero h1 .bordo,
-  .agency-site[data-theme="dark"] .hero h1 .text-bordo,
-  .agency-site[data-theme="dark"] .hero-image-title .hero-image-bordo {
-    color: #6C151E !important;
-  }
+  .agency-site .theme-toggle { display: none !important; }
 
   /* Keep the mobile hero compact and hide the CTA's decorative arrow. */
   .agency-site .nav-cta svg { display: none !important; }

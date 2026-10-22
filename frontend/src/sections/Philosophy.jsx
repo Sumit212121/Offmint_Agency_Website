@@ -239,7 +239,7 @@ export default function Philosophy() {
       <div className="philosophy-atmosphere" />
       <div className="philosophy-intro">
         <div className="philosophy-eyebrow"><span>[ {defaultPhilosophyHeading.eyebrow} ]</span><i /></div>
-        <h2>{defaultPhilosophyHeading.title}<em>{defaultPhilosophyHeading.accent}</em></h2>
+        <h2>{defaultPhilosophyHeading.title}<em>{defaultPhilosophyHeading.accent === "Enduring Value." ? <>Enduring <span className="philosophy-value-word">Value.</span></> : defaultPhilosophyHeading.accent}</em></h2>
         <p>{defaultPhilosophyHeading.description}</p>
         <div className="philosophy-actions">
           <a className="philosophy-cta" href="#philosophy-cards">Explore our approach <ArrowUpRight size={15} /></a>
