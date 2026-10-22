@@ -7,6 +7,7 @@ import "./navbar-tweaks.css";
 import "./showcase-visual.css";
 import "./theme-modes.css";
 import "./brand-green-unify.css";
+import "./mobile-responsive.css";
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
