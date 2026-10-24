@@ -94,7 +94,7 @@ export default function Services({ onOpenService }) {
     <div className="services-showcase-inner">
       <header className="services-showcase-heading">
         <div className="services-showcase-eyebrow"><i /><span className="services-showcase-eyebrow-text">{heading.eyebrow}</span><i /></div>
-        <h2><span className="services-showcase-title-main">Creative Solutions</span> <em>for Every <span className="services-showcase-stage">Stage.</span></em></h2>
+        <h2 className="services-five-ways-heading"><span className="services-five-ways-gold">Five ways</span> <span className="services-five-ways-cream">we work with</span> <span className="services-five-ways-red">you.</span></h2>
         <p>{heading.description?.trim() || defaultHeading.description}</p>
       </header>
       {notice && <div className="services-showcase-notice" role="status"><Check size={14} />{notice}</div>}

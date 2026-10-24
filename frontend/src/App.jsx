@@ -5,10 +5,10 @@ import Hero from "./sections/Hero.jsx";
 import Services from "./sections/Services.jsx";
 import ProjectProcess from "./sections/ProjectProcess.jsx";
 import Portfolio from "./sections/Portfolio.jsx";
-import Philosophy from "./sections/Philosophy.jsx";
 import ClientStories from "./sections/ClientStories.jsx";
 import ContactBrief from "./sections/ContactBrief.jsx";
 import ServiceDetail from "./sections/ServiceDetail.jsx";
+import OurPhilosophyEditorial from "./sections/OurPhilosophyEditorial.jsx";
 
 function getInitialTheme() {
   try {
@@ -80,7 +80,7 @@ export default function App() {
     <main className="agency-site" data-theme={theme}>
       <Navbar theme={theme} onToggleTheme={toggleTheme} />
       <Hero />
-      <Philosophy />
+      <OurPhilosophyEditorial />
       <Services onOpenService={openService} />
       <ProjectProcess />
       <Portfolio />

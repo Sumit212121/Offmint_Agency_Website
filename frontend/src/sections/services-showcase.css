@@ -646,6 +646,24 @@
     }
 }
 
+/* Editorial heading colors matching the original gold + burgundy palette. */
+.agency-site .services-showcase .services-showcase-heading h2.services-five-ways-heading {
+    color: #F5DABF !important;
+    font-family: "Playfair Display", Georgia, serif;
+}
+.agency-site .services-showcase .services-showcase-heading h2 .services-five-ways-gold {
+    color: #0F3D3A !important;
+    -webkit-text-fill-color: #0F3D3A !important;
+}
+.agency-site .services-showcase .services-showcase-heading h2 .services-five-ways-cream {
+    color: #D0A45C !important;
+    -webkit-text-fill-color: #D0A45C !important;
+}
+.agency-site .services-showcase .services-showcase-heading h2 .services-five-ways-red {
+    color: #6C151E !important;
+    -webkit-text-fill-color: #6C151E !important;
+}
+
 /* Keep the Services heading content complete and centered across themes. */
 .services-showcase .services-showcase-heading {
     display: block !important;
