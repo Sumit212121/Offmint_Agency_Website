@@ -108,7 +108,7 @@ export default function Services({ onOpenService }) {
               aria-label={card.title}
               onMouseEnter={(event) => { if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) event.currentTarget.classList.add("is-open"); }}
               onMouseLeave={(event) => { if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) event.currentTarget.classList.remove("is-open"); }}
-              onClick={(event) => { if (window.matchMedia("(max-width: 620px)").matches && !event.target.closest(".sliding-service-explore")) event.currentTarget.classList.toggle("is-open"); }}
+              onClick={(event) => { if (event.target.closest(".sliding-service-explore")) return; if (window.matchMedia("(max-width: 620px)").matches) { event.currentTarget.classList.toggle("is-open"); } else { onOpenService?.(card.id); } }}
               onFocus={(event) => event.currentTarget.classList.add("is-open")}
               onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) event.currentTarget.classList.remove("is-open"); }}
               onKeyDown={(event) => { if (event.key === "Escape") event.currentTarget.classList.remove("is-open"); }}

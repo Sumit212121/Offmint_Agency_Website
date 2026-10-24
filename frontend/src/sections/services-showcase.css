@@ -735,7 +735,7 @@
 /* Sliding architectural service doors — isolated to this section only. */
 .agency-site .services-showcase {
     overflow: visible;
-    background: #07100b;
+    background: #0F3D3A;
     color: #f4efe3;
     padding: 58px clamp(20px, 3.2vw, 56px) 54px;
 }
@@ -784,6 +784,7 @@
     inset: 0;
     isolation: isolate;
     outline: none;
+    cursor: pointer;
 }
 
 .sliding-service-panel:focus-visible {
@@ -883,7 +884,8 @@
     display: block;
     margin-bottom: 17px;
     font: 400 clamp(30px, 3vw, 52px)/1 "Playfair Display", Georgia, serif;
-    color: #9ba58e;
+    color: #D0A45C !important;
+    -webkit-text-fill-color: #D0A45C !important;
     letter-spacing: -.05em;
 }
 
@@ -1075,6 +1077,11 @@
 
     .sliding-service-door {
         transform-origin: left center;
+        transition: transform 5s cubic-bezier(.22, .72, .18, 1), box-shadow 5s ease;
+    }
+
+    .sliding-service-reveal img {
+        transition: transform 5s cubic-bezier(.22, .72, .18, 1), filter .45s ease;
     }
 
     .sliding-service-topline {

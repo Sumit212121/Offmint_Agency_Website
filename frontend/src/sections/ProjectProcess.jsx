@@ -29,7 +29,7 @@ export default function ProjectProcess() {
     <section className="project-process" id="our-process" aria-labelledby="project-process-title">
       <div className="project-process-inner">
         <div className="project-process-eyebrow"><span />OUR PROCESS<span /></div>
-        <h2 id="project-process-title">How Our <em>Project Runs.</em></h2>
+        <h2 id="project-process-title">How Our <em><span className="project-project-word">Project</span> <span className="project-runs-word">Runs.</span></em></h2>
         <p className="project-process-subtitle">
           From understanding to growth, we follow a clear and result-driven process.
         </p>

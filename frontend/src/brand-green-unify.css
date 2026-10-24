@@ -128,18 +128,22 @@ body,.agency-site{background-color:#0F3D3A}
   color:#6C151E!important;
 }
 
-/* Mobile-only burgundy accents for the Our Process eyebrow and “Runs.” */
-@media (max-width: 640px){
-  .agency-site .project-process .project-process-eyebrow{
-    color:#6C151E!important;
-  }
-  .agency-site .project-process .project-process-eyebrow span{
-    background:#6C151E!important;
-    background-color:#6C151E!important;
-  }
-  .agency-site .project-process h2 em{
-    color:#D0A45C!important;
-  }
+/* Burgundy eyebrow and Runs; keep Project in the original gold. */
+.agency-site .project-process .project-process-eyebrow{
+  color:#6C151E!important;
+}
+.agency-site .project-process .project-process-eyebrow span{
+  background:#6C151E!important;
+  background-color:#6C151E!important;
+}
+.agency-site .project-process h2 em{
+  color:#D0A45C!important;
+}
+.agency-site .project-process h2 em .project-project-word{
+  color:#D0A45C!important;
+}
+.agency-site .project-process h2 em .project-runs-word{
+  color:#6C151E!important;
 }
 
 /* Philosophy eyebrow label and its horizontal accent line in burgundy red. */
