@@ -8,12 +8,11 @@ import "./services-red-accents.css";
 
 const STORAGE_KEY = "aurelia-our-services-v1";
 const defaults = [
-  { id: "website", number: "01", title: "Website Build", description: "Modern, high-performing websites that convert visitors into customers.", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=85", alt: "Website analytics and design on a laptop", icon: "monitor" },
-  { id: "branding", number: "02", title: "Branding", description: "Distinctive brand identities that make a lasting impression.", image: "https://images.unsplash.com/photo-1634942536790-2534db3a2e7d?auto=format&fit=crop&w=1000&q=85", alt: "Brand identity design", icon: "sprout" },
-  { id: "pr", number: "03", title: "PR", description: "Strategic public relations to amplify your story and credibility.", image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1000&q=85", alt: "News and media coverage", icon: "megaphone" },
-  { id: "ai-videos", number: "04", title: "AI Videos", description: "Engaging AI-powered videos for marketing, ads and storytelling.", image: "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?auto=format&fit=crop&w=1000&q=85", alt: "Video production camera setup", icon: "video" },
-  { id: "brand-kit", number: "05", title: "Brand Kit", description: "Complete visual assets for a consistent and memorable brand.", image: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=1000&q=85", alt: "Creative stationery and brand materials", icon: "package" },
-  { id: "social", number: "06", title: "Social Media Management", description: "Content, strategy and growth management to keep your brand ahead.", image: "https://images.unsplash.com/photo-1611162616305-c69b3fa7fbe0?auto=format&fit=crop&w=1000&q=85", alt: "Social media content and phone", icon: "chart" },
+  { id: "website", number: "01", title: "Brand Foundation", description: "Positioning, identity and a brand kit you can build on.", image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=85", alt: "Brand foundation and strategy", icon: "monitor" },
+  { id: "branding", number: "02", title: "The Website", description: "Modern, high-performing websites that turn visitors into customers.", image: "https://images.unsplash.com/photo-1634942536790-2534db3a2e7d?auto=format&fit=crop&w=1000&q=85", alt: "Website design and development", icon: "sprout" },
+  { id: "pr", number: "03", title: "The Content Engine", description: "Creative content and social media strategy to keep your brand active and growing.", image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1000&q=85", alt: "Content creation and media", icon: "megaphone" },
+  { id: "ai-videos", number: "04", title: "Campaigns and Shoots", description: "Visual campaigns, product shoots and AI-powered videos that bring your story to life.", image: "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?auto=format&fit=crop&w=1000&q=85", alt: "Campaign and video production", icon: "video" },
+  { id: "brand-kit", number: "05", title: "Press and Presence", description: "Public relations, brand assets and social presence that amplify your credibility.", image: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=1000&q=85", alt: "Press, brand assets and social presence", icon: "package" },
 ];
 const iconMap = { monitor: Monitor, sprout: Sprout, megaphone: Megaphone, video: Video, package: Package, chart: ChartNoAxesColumnIncreasing };
 const defaultHeading = { eyebrow: "OUR SERVICES", title: "Creative Solutions ", accent: "for Every Stage.", description: "From strategy and design to content and growth, we offer end-to-end creative services to help your brand stand out and scale." };
@@ -53,7 +52,7 @@ function ServiceEditor({ item, onClose, onSave }) {
   </div>;
 }
 
-export default function Services() {
+export default function Services({ onOpenService }) {
   const [cards, setCards] = useState(defaults);
   const [heading, setHeading] = useState(defaultHeading);
   const [headingDraft, setHeadingDraft] = useState(defaultHeading);
@@ -63,7 +62,7 @@ export default function Services() {
   useEffect(() => {
     try {
       const saved = JSON.parse(window.localStorage.getItem(STORAGE_KEY) || "null");
-      if (saved?.cards?.length === 6) setCards(saved.cards);
+      if (saved?.cards?.length === 5) setCards(saved.cards.map((card) => ({ ...card, title: defaults.find((item) => item.id === card.id)?.title || card.title })));
       if (saved?.heading) {
         const restoredHeading = {
           ...defaultHeading,
@@ -94,28 +93,47 @@ export default function Services() {
   return <section className="services-showcase section" id="services">
     <div className="services-showcase-inner">
       <header className="services-showcase-heading">
-        <div className="services-showcase-eyebrow"><i />{heading.eyebrow}<i /></div>
-        <h2><span className="services-showcase-title-main">Creative Solutions</span> <em>{heading.accent?.trim() || defaultHeading.accent}</em></h2>
+        <div className="services-showcase-eyebrow"><i /><span className="services-showcase-eyebrow-text">{heading.eyebrow}</span><i /></div>
+        <h2><span className="services-showcase-title-main">Creative Solutions</span> <em>for Every <span className="services-showcase-stage">Stage.</span></em></h2>
         <p>{heading.description?.trim() || defaultHeading.description}</p>
       </header>
       {notice && <div className="services-showcase-notice" role="status"><Check size={14} />{notice}</div>}
-      <div className="services-showcase-grid">
-        {cards.map((card) => {
-          const Icon = iconMap[card.icon] || Monitor;
-          return <article className="services-showcase-card" key={card.id}>
-            <div className="services-showcase-image">
-              <img src={card.image} alt={card.alt || card.title} loading="lazy" onError={(event) => { event.currentTarget.style.opacity = ".15"; }} />
-              <span className="services-showcase-number">{card.number}</span>
+      <div className="sliding-services-panels" aria-label="Explore our services">
+        {cards.map((card, index) => (
+          <article className="sliding-service-slot" key={card.id}>
+            <div
+              className="sliding-service-panel"
+              tabIndex={0}
+              role="group"
+              aria-label={card.title}
+              onMouseEnter={(event) => { if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) event.currentTarget.classList.add("is-open"); }}
+              onMouseLeave={(event) => { if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) event.currentTarget.classList.remove("is-open"); }}
+              onClick={(event) => { if (window.matchMedia("(max-width: 620px)").matches && !event.target.closest(".sliding-service-explore")) event.currentTarget.classList.toggle("is-open"); }}
+              onFocus={(event) => event.currentTarget.classList.add("is-open")}
+              onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) event.currentTarget.classList.remove("is-open"); }}
+              onKeyDown={(event) => { if (event.key === "Escape") event.currentTarget.classList.remove("is-open"); }}
+            >
+              <div className="sliding-service-reveal">
+                <img src={card.image} alt="" loading="lazy" onError={(event) => { event.currentTarget.style.opacity = ".15"; }} />
+                <span className="sliding-service-image-shade" />
+              </div>
+              <div className="sliding-service-door">
+                <div className="sliding-service-copy">
+                  <span className="sliding-service-number">{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{defaults.find((item) => item.id === card.id)?.title || card.title}</h3>
+                  <span className="sliding-service-rule" />
+                  <p>{card.description}</p>
+                </div>
+                <button type="button" className="sliding-service-explore" onClick={(event) => { event.stopPropagation(); onOpenService?.(card.id); }} aria-label={"Explore " + card.title}>
+                  <span className="sliding-service-label">EXPLORE</span><span className="sliding-service-arrow" aria-hidden="true">→</span>
+                </button>
+                <span className="sliding-service-metal" aria-hidden="true" />
+              </div>
+              <span className="sliding-service-track" aria-hidden="true" />
             </div>
-            <div className="services-showcase-card-body">
-              <span className="services-showcase-icon"><Icon size={25} strokeWidth={1.5} /></span>
-              <div className="services-showcase-copy"><h3>{card.title}</h3><p>{card.description}</p></div>
-              <button type="button" className="services-showcase-arrow" onClick={() => setEditing(card)} aria-label={"Edit " + card.title} title="Edit this service"><ArrowRight size={21} /></button>
-            </div>
-          </article>;
-        })}
+          </article>
+        ))}
       </div>
-      <div className="services-showcase-footnote"><span>IDEAS</span><i /><span>DESIGN</span><i /><span>IMPACT</span></div>
     </div>
     {editing && <ServiceEditor item={editing} onClose={() => setEditing(null)} onSave={saveCard} />}
     {editingHeading && <div className="services-editor-backdrop" onMouseDown={(event) => event.target === event.currentTarget && setEditingHeading(false)}>
